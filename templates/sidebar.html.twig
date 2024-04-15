@@ -1,0 +1,21 @@
+{% block sidebar %}
+	<nav>
+		<a href="{{ path("home") }}" id="logo">
+			<img src="/img/logo.png" alt="Logo TaskLinker"/>
+		</a>
+		<ul id="main-menu">
+			<li class="active">
+				<a href="{{ path("home") }}">
+					<i class="fa-solid fa-list-check"></i>
+					Projets
+				</a>
+			</li>
+			<li>
+				<a href="employes.html">
+					<i class="fa-regular fa-user"></i>
+					Équipe
+				</a>
+			</li>
+		</ul>
+	</nav>
+{% endblock %}
