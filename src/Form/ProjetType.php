@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Employe;
 use App\Entity\Projet;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,12 +16,16 @@ class ProjetType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                "label" => "Titre du projet"
+                'label' => 'Titre du projet'
             ])
-            ->add('employe_id', IntegerType::class, [
-                "label" => "Inviter des membres"
-            ])
-        ;
+            ->add('employe_id', EntityType::class, [
+                'class' => Employe::class,
+                'choice_label' => function (Employe $employe) {
+                    return $employe->getFullName();
+                },
+                'multiple' => true,
+                'label' => 'Inviter des membres',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

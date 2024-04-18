@@ -15,16 +15,8 @@
 		<div id="content">
 			{{ form_start(form) }}
 			<div>
-				<label for="projet_nom" class="required">Titre du projet</label><input type="text" id="projet_nom" name="projet[nom]" required="required"/>
-				<div>
-					<label for="projet_employes">Inviter des membres</label>
-					<select id="projet_employes" name="projet[employes][]" multiple="multiple">
-						{% for index, employe in employes %}
-							{% set name = employe.lastName ~ ' ' ~ employe.firstName %}
-							<option value="{{ index }}">{{ name }}</option>
-						{% endfor %}
-					</select>
-				</div>
+				{{form_row(form.title)}}
+				{{form_row(form.employe_id)}}
 				<br>
 				<button class="button button-submit">Continuer</button>
 				{{ form_end(form) }}
