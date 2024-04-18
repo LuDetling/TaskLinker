@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Nouveau projet - TaskLinker
+{% endblock %}
+
+{% block body %}
+	<main>
+		<header>
+			<div id="current-user"></div>
+			<div id="title-page">
+				<h1>Nouveau projet</h1>
+			</div>
+		</header>
+		<div id="content">
+			{{ form_start(form) }}
+			<div>
+				<label for="projet_nom" class="required">Titre du projet</label><input type="text" id="projet_nom" name="projet[nom]" required="required"/>
+				<div>
+					<label for="projet_employes">Inviter des membres</label>
+					<select id="projet_employes" name="projet[employes][]" multiple="multiple">
+						{% for index, employe in employes %}
+							{% set name = employe.lastName ~ ' ' ~ employe.firstName %}
+							<option value="{{ index }}">{{ name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<br>
+				<button class="button button-submit">Continuer</button>
+				{{ form_end(form) }}
+			</div>
+		</main>
+	{% endblock %}

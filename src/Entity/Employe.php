@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\EmployeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\Entity(repositoryClass: EmployeRepository::class)]
+class Employe
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,6 +30,17 @@ class User
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Projet>
+     */
+    #[ORM\ManyToMany(targetEntity: Projet::class, mappedBy: 'employe_id')]
+    private Collection $projet_id;
+
+    public function __construct()
+    {
+        $this->projet_id = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +103,33 @@ class User
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Projet>
+     */
+    public function getProjetId(): Collection
+    {
+        return $this->projet_id;
+    }
+
+    public function addProjetId(Projet $projetId): static
+    {
+        if (!$this->projet_id->contains($projetId)) {
+            $this->projet_id->add($projetId);
+            $projetId->addEmployeId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetId(Projet $projetId): static
+    {
+        if ($this->projet_id->removeElement($projetId)) {
+            $projetId->removeEmployeId($this);
+        }
 
         return $this;
     }
