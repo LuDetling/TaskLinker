@@ -7,12 +7,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<User>
+ * @extends ServiceEntityRepository<Employe>
  *
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Employe|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Employe|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Employe[]    findAll()
+ * @method Employe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class EmployeRepository extends ServiceEntityRepository
 {
@@ -22,7 +22,7 @@ class EmployeRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return User[] Returns an array of User objects
+    //     * @return Employe[] Returns an array of Employe objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -35,8 +35,21 @@ class EmployeRepository extends ServiceEntityRepository
     //            ->getResult()
     //        ;
     //    }
+    /**
+     * @return Employe[] Returns an array of Employe objects
+     */
+    public function findEmployeByProjetId($projet): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere(':projet MEMBER OF p.projet')
+            ->setParameter('id', $projet)
+            ->orderBy('e.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?User
+    //    public function findOneBySomeField($value): ?Employe
     //    {
     //        return $this->createQueryBuilder('u')
     //            ->andWhere('u.exampleField = :val')
