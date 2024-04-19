@@ -34,12 +34,12 @@ class Employe
     /**
      * @var Collection<int, Projet>
      */
-    #[ORM\ManyToMany(targetEntity: Projet::class, mappedBy: 'employe_id')]
-    private Collection $projet_id;
+    #[ORM\ManyToMany(targetEntity: Projet::class, mappedBy: 'employes')]
+    private Collection $projets;
 
     public function __construct()
     {
-        $this->projet_id = new ArrayCollection();
+        $this->projets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,35 +107,39 @@ class Employe
         return $this;
     }
 
-    /**
-     * @return Collection<int, Projet>
-     */
-    public function getProjetId(): Collection
-    {
-        return $this->projet_id;
-    }
-
-    public function addProjetId(Projet $projetId): static
-    {
-        if (!$this->projet_id->contains($projetId)) {
-            $this->projet_id->add($projetId);
-            $projetId->addEmployeId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProjetId(Projet $projetId): static
-    {
-        if ($this->projet_id->removeElement($projetId)) {
-            $projetId->removeEmployeId($this);
-        }
-
-        return $this;
-    }
-
     public function getFullName(): ?string
     {
         return $this->getLastname() . ' ' . $this->getFirstname();
+    }
+    public function getAvatar(): ?string
+    {
+        return substr($this->getLastname(), 0, 1) . ' ' . substr($this->getFirstname(), 0, 1);
+    }
+
+    /**
+     * @return Collection<int, Projet>
+     */
+    public function getProjets(): Collection
+    {
+        return $this->projets;
+    }
+
+    public function addProjet(Projet $projet): static
+    {
+        if (!$this->projets->contains($projet)) {
+            $this->projets->add($projet);
+            $projet->addEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjet(Projet $projet): static
+    {
+        if ($this->projets->removeElement($projet)) {
+            $projet->removeEmploye($this);
+        }
+
+        return $this;
     }
 }

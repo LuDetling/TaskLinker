@@ -21,12 +21,15 @@ class Projet
     /**
      * @var Collection<int, Employe>
      */
-    #[ORM\ManyToMany(targetEntity: Employe::class, inversedBy: 'projet_id')]
-    private Collection $employe_id;
+    #[ORM\ManyToMany(targetEntity: Employe::class, inversedBy: 'projets')]
+    private Collection $employes;
 
+    /**
+     * @var Collection<int, Employe>
+     */
     public function __construct()
     {
-        $this->employe_id = new ArrayCollection();
+        $this->employes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,23 +52,24 @@ class Projet
     /**
      * @return Collection<int, Employe>
      */
-    public function getEmployeId(): Collection
+    public function getEmployes(): Collection
     {
-        return $this->employe_id;
+        return $this->employes;
     }
 
-    public function addEmployeId(Employe $employeId): static
+    public function addEmploye(Employe $employe): static
     {
-        if (!$this->employe_id->contains($employeId)) {
-            $this->employe_id->add($employeId);
+        if (!$this->employes->contains($employe)) {
+            $this->employes->add($employe);
         }
 
         return $this;
     }
 
-    public function removeEmployeId(Employe $employeId): static
+    public function removeEmploye(Employe $employe): static
     {
-        $this->employe_id->removeElement($employeId);
+        $this->employes->removeElement($employe);
+
         return $this;
     }
 }

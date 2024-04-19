@@ -35,19 +35,6 @@ class EmployeRepository extends ServiceEntityRepository
     //            ->getResult()
     //        ;
     //    }
-    /**
-     * @return Employe[] Returns an array of Employe objects
-     */
-    public function findEmployeByProjetId($projet): array
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere(':projet MEMBER OF p.projet')
-            ->setParameter('id', $projet)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-    }
 
     //    public function findOneBySomeField($value): ?Employe
     //    {

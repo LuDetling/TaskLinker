@@ -16,12 +16,12 @@ class ProjetController extends AbstractController
 {
 
     #[Route('/projet/{id}', name: 'projet')]
-    public function projet(ProjetRepository $projetRepository, EmployeRepository $employeRepository, int $id): Response
+    public function projet(ProjetRepository $projetRepository, int $id): Response
     {
 
-        $employes = $employeRepository->findEmployeByProjetId($id);
-        var_dump($employes);
         $projet = $projetRepository->find($id);
+        $employes = $projet->getEmployes();
+
         return $this->render('projet/projet.html.twig', [
             'projet' => $projet,
             'employes' => $employes
