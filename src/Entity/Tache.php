@@ -35,10 +35,10 @@ class Tache
     private Collection $projet_id;
 
     /**
-     * @var Collection<int, Status>
+     * @var Collection<int, statut>
      */
-    #[ORM\OneToMany(targetEntity: Status::class, mappedBy: 'tache')]
-    private Collection $status_id;
+    #[ORM\OneToMany(targetEntity: statut::class, mappedBy: 'tache')]
+    private Collection $statut_id;
 
     /**
      * @var Collection<int, Etiquette>
@@ -49,7 +49,7 @@ class Tache
     public function __construct()
     {
         $this->projet_id = new ArrayCollection();
-        $this->status_id = new ArrayCollection();
+        $this->statut_id = new ArrayCollection();
         $this->etiquettes = new ArrayCollection();
     }
 
@@ -137,29 +137,29 @@ class Tache
     }
 
     /**
-     * @return Collection<int, Status>
+     * @return Collection<int, statut>
      */
-    public function getStatusId(): Collection
+    public function getstatutId(): Collection
     {
-        return $this->status_id;
+        return $this->statut_id;
     }
 
-    public function addStatusId(Status $statusId): static
+    public function addstatutId(statut $statutId): static
     {
-        if (!$this->status_id->contains($statusId)) {
-            $this->status_id->add($statusId);
-            $statusId->setTache($this);
+        if (!$this->statut_id->contains($statutId)) {
+            $this->statut_id->add($statutId);
+            $statutId->setTache($this);
         }
 
         return $this;
     }
 
-    public function removeStatusId(Status $statusId): static
+    public function removestatutId(statut $statutId): static
     {
-        if ($this->status_id->removeElement($statusId)) {
+        if ($this->statut_id->removeElement($statutId)) {
             // set the owning side to null (unless already changed)
-            if ($statusId->getTache() === $this) {
-                $statusId->setTache(null);
+            if ($statutId->getTache() === $this) {
+                $statutId->setTache(null);
             }
         }
 

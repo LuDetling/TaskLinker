@@ -65,7 +65,7 @@ class ProjetController extends AbstractController
             "form" => $form
         ]);
     }
-    #[Route('/deleteProjet/{id}', 'deleteProjet', methods: ['DELETE'])]
+    #[Route('/deleteProjet/{id}', 'deleteProjet', methods: ['GET'])]
     public function deleteProjet(Projet $projet, EntityManagerInterface $em)
     {
         $em->remove($projet);

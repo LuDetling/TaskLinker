@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ employe.getFullName }}
+	- TaskLinker
+{% endblock %}
+
+{% block body %}
+	<main>
+		<header>
+			<div id="current-user"></div>
+			<div id="title-page">
+				<h1>{{ employe.getFullName }}</h1>
+			</div>
+		</header>
+		<div id="content">
+			{{ form_start(form) }}
+			{{ form_row(form.lastname) }}
+			{{ form_row(form.firstname) }}
+			{{ form_row(form.email) }}
+			<div class="form-flex">
+				{{ form_row(form.date_entree) }}
+				{{ form_row(form.statut) }}
+			</div>
+			<button type="submit" class="button button-submit">Enregistrer</button>
+			{{ form_end(form) }}
+		</div>
+	</main>
+{% endblock %}

@@ -37,6 +37,9 @@ class Employe
     #[ORM\ManyToMany(targetEntity: Projet::class, mappedBy: 'employes')]
     private Collection $projets;
 
+    #[ORM\Column(length: 255)]
+    private ?string $statut = null;
+
     public function __construct()
     {
         $this->projets = new ArrayCollection();
@@ -139,6 +142,18 @@ class Employe
         if ($this->projets->removeElement($projet)) {
             $projet->removeEmploye($this);
         }
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): static
+    {
+        $this->statut = $statut;
 
         return $this;
     }

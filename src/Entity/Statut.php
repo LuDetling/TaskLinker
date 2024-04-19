@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\StatusRepository;
+use App\Repository\statutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: StatusRepository::class)]
-class Status
+#[ORM\Entity(repositoryClass: StatutRepository::class)]
+class Statut
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,10 +21,10 @@ class Status
     /**
      * @var Collection<int, Projet>
      */
-    #[ORM\OneToMany(targetEntity: Projet::class, mappedBy: 'status')]
+    #[ORM\OneToMany(targetEntity: Projet::class, mappedBy: 'statut')]
     private Collection $projet_id;
 
-    #[ORM\ManyToOne(inversedBy: 'status_id')]
+    #[ORM\ManyToOne(inversedBy: 'statut_id')]
     private ?Tache $tache = null;
 
     public function __construct()
@@ -61,7 +61,7 @@ class Status
     {
         if (!$this->projet_id->contains($projetId)) {
             $this->projet_id->add($projetId);
-            $projetId->setStatus($this);
+            $projetId->setstatut($this);
         }
 
         return $this;
@@ -71,8 +71,8 @@ class Status
     {
         if ($this->projet_id->removeElement($projetId)) {
             // set the owning side to null (unless already changed)
-            if ($projetId->getStatus() === $this) {
-                $projetId->setStatus(null);
+            if ($projetId->getstatut() === $this) {
+                $projetId->setstatut(null);
             }
         }
 

@@ -28,7 +28,7 @@ class Projet
     private ?Tache $tache = null;
 
     #[ORM\ManyToOne(inversedBy: 'projet_id')]
-    private ?Status $status = null;
+    private ?statut $statut = null;
 
     /**
      * @var Collection<int, Employe>
@@ -91,14 +91,14 @@ class Projet
         return $this;
     }
 
-    public function getStatus(): ?Status
+    public function getstatut(): ?statut
     {
-        return $this->status;
+        return $this->statut;
     }
 
-    public function setStatus(?Status $status): static
+    public function setstatut(?statut $statut): static
     {
-        $this->status = $status;
+        $this->statut = $statut;
 
         return $this;
     }

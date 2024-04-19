@@ -36,12 +36,12 @@
 									</div>
 								</div>
 							</td>
-							<td>CDI</td>
+							<td>{{ employe.statut }}</td>
 							<td>
-								<a class="button button-edit-team" href="employe.html">
+								<a class="button button-edit-team" href="{{ path("editEmploye", {id: employe.id}) }}">
 									Éditer
 								</a>
-								<a class="delete-team" href="#">
+								<a class="delete-team" href="{{ path("deleteEmploye", {id: employe.id}) }}">
 									Supprimer
 								</a>
 							</td>
