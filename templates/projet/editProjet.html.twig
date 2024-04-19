@@ -9,17 +9,17 @@
 		<header>
 			<div id="current-user"></div>
 			<div id="title-page">
-				<h1>Nouveau projet</h1>
+				<h1>Nom du projet</h1>
 			</div>
 		</header>
 		<div id="content">
-			{{ form_start(form) }}
-			<div>
-				{{form_row(form.title)}}
-				{{form_row(form.employes)}}
+			<form name="projet" method="post">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
 				<br>
-				<button type="submit" class="button button-submit">Continuer</button>
+				<button class="button button-submit">Modifier</button>
 				{{ form_end(form) }}
-			</div>
-		</main>
-	{% endblock %}
+			</form>
+		</div>
+	</main>
+{% endblock %}

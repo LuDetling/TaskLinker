@@ -19,12 +19,18 @@
 							<h2>{{ projet.title }}</h2>
 						</a>
 						<div class="card-project-icons">
-							<a href="projet-edit.html">
+							<a href="{{ path("editProjet", {id: projet.id}) }}">
 								<i class="fa-solid fa-pen"></i>
 							</a>
-							<a href="#">
+							<a href="{{ path("deleteProjet", {id: projet.id}) }}">
 								<i class="fa-solid fa-trash"></i>
 							</a>
+							{# <form action="{{ path("deleteProjet", {id: projet.id}) }}" method="post">
+							<input type="hidden" name="_method" value="DELETE">
+								<button type="submit">
+									<i class="fa-solid fa-trash"></i>
+								</button>
+							</form> #}
 						</div>
 					</article>
 				{% endfor %}

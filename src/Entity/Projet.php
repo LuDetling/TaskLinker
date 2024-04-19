@@ -24,6 +24,12 @@ class Projet
     #[ORM\ManyToMany(targetEntity: Employe::class, inversedBy: 'projets')]
     private Collection $employes;
 
+    #[ORM\ManyToOne(inversedBy: 'projet_id')]
+    private ?Tache $tache = null;
+
+    #[ORM\ManyToOne(inversedBy: 'projet_id')]
+    private ?Status $status = null;
+
     /**
      * @var Collection<int, Employe>
      */
@@ -69,6 +75,30 @@ class Projet
     public function removeEmploye(Employe $employe): static
     {
         $this->employes->removeElement($employe);
+
+        return $this;
+    }
+
+    public function getTache(): ?Tache
+    {
+        return $this->tache;
+    }
+
+    public function setTache(?Tache $tache): static
+    {
+        $this->tache = $tache;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

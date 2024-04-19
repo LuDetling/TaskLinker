@@ -47,4 +47,29 @@ class ProjetController extends AbstractController
             "form" => $form
         ]);
     }
+
+    #[Route('/editProjet/{id}', 'editProjet', methods: ["GET", "POST"])]
+    public function editProjet(Request $request, Projet $projet, EntityManagerInterface $em)
+    {
+        $employes = $projet->getEmployes();
+
+        $form = $this->createForm(ProjetType::class, $projet);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute("projet", ["id" => $projet->getId()]);
+        }
+        return $this->render('projet/editProjet.html.twig', [
+            "projet" => $projet,
+            "employes" => $employes,
+            "form" => $form
+        ]);
+    }
+    #[Route('/deleteProjet/{id}', 'deleteProjet', methods: ['DELETE'])]
+    public function deleteProjet(Projet $projet, EntityManagerInterface $em)
+    {
+        $em->remove($projet);
+        $em->flush();
+        return $this->redirectToRoute("home");
+    }
 }

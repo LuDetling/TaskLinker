@@ -13,11 +13,11 @@
 				<div class="flex-header">
 					<h1>{{ projet.title }}</h1>
 					<div class="user-list">
-					{% for employe in employes %}
-						<div class="avatar">{{ employe.getAvatar }}</div>
-					{% endfor %}
+						{% for employe in employes %}
+							<div class="avatar">{{ employe.getAvatar }}</div>
+						{% endfor %}
 					</div>
-					<a class="button" href="projet-edit.html">Modifier</a>
+					<a class="button" href="{{ path('editProjet', {id: projet.id}) }}">Modifier</a>
 				</div>
 			</div>
 		</header>
