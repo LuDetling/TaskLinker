@@ -26,23 +26,27 @@ class Employe
     private ?string $email = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_entree = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    /**
-     * @var Collection<int, Projet>
-     */
-    #[ORM\ManyToMany(targetEntity: Projet::class, mappedBy: 'employes')]
-    private Collection $projets;
+    private ?\DateTimeInterface $dateStart = null;
 
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
+    /**
+     * @var Collection<int, Projet>
+     */
+    #[ORM\ManyToMany(targetEntity: Projet::class, mappedBy: 'employe')]
+    private Collection $projets;
+
+    /**
+     * @var Collection<int, Tache>
+     */
+    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'employe')]
+    private Collection $taches;
+
     public function __construct()
     {
         $this->projets = new ArrayCollection();
+        $this->taches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,37 +90,28 @@ class Employe
         return $this;
     }
 
-    public function getDateEntree(): ?\DateTimeInterface
+    public function getDateStart(): ?\DateTimeInterface
     {
-        return $this->date_entree;
+        return $this->dateStart;
     }
 
-    public function setDateEntree(\DateTimeInterface $date_entree): static
+    public function setDateStart(\DateTimeInterface $dateStart): static
     {
-        $this->date_entree = $date_entree;
+        $this->dateStart = $dateStart;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getStatut(): ?string
     {
-        return $this->password;
+        return $this->statut;
     }
 
-    public function setPassword(string $password): static
+    public function setStatut(string $statut): static
     {
-        $this->password = $password;
+        $this->statut = $statut;
 
         return $this;
-    }
-
-    public function getFullName(): ?string
-    {
-        return $this->getLastname() . ' ' . $this->getFirstname();
-    }
-    public function getAvatar(): ?string
-    {
-        return substr($this->getLastname(), 0, 1) . ' ' . substr($this->getFirstname(), 0, 1);
     }
 
     /**
@@ -146,15 +141,43 @@ class Employe
         return $this;
     }
 
-    public function getStatut(): ?string
+    /**
+     * @return Collection<int, Tache>
+     */
+    public function getTaches(): Collection
     {
-        return $this->statut;
+        return $this->taches;
     }
 
-    public function setStatut(string $statut): static
+    public function addTach(Tache $tach): static
     {
-        $this->statut = $statut;
+        if (!$this->taches->contains($tach)) {
+            $this->taches->add($tach);
+            $tach->setEmploye($this);
+        }
 
         return $this;
+    }
+
+    public function removeTach(Tache $tach): static
+    {
+        if ($this->taches->removeElement($tach)) {
+            // set the owning side to null (unless already changed)
+            if ($tach->getEmploye() === $this) {
+                $tach->setEmploye(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return substr($this->getLastname(), 0, 1) . " " . substr($this->getFirstname(), 0, 1);
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->getLastname() . " " . $this->getFirstname();
     }
 }

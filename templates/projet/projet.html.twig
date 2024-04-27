@@ -23,26 +23,7 @@
 		</header>
 		<div id="content">
 			<div id="tasks-container">
-				{# {% for tache in taches %}
-					<div class="task-column">
-						<h2>To Do</h2>
-						<div class="tasks-list">
-							<a class="task" href="tache.html">
-								<h3>Gestion des droits d&#039;accès</h3>
-								<p>Un employé ne peut accéder qu&#039;à ses projets</p>
-								<div class="task-infos">
-									<div class="task-deadline">
-										<i class="fa-regular fa-calendar"></i>
-										22/09/2023
-									</div>
-								</div>
-							</a>
-							<a href="tache-add.html" class="task-add">
-								+ Ajouter une tâche
-							</a>
-						</div>
-					</div>
-				{% endfor %} #}
+				{% include "/tache/tache.html.twig" %}
 			</div>
 		</div>
 	</main>

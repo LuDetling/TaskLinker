@@ -26,10 +26,10 @@ class EmployeRepository extends ServiceEntityRepository
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
+    //            ->orderBy('e.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
@@ -38,8 +38,8 @@ class EmployeRepository extends ServiceEntityRepository
 
     //    public function findOneBySomeField($value): ?Employe
     //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

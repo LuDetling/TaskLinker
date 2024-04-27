@@ -6,6 +6,8 @@ use App\Entity\Projet;
 use App\Form\ProjetType;
 use App\Repository\EmployeRepository;
 use App\Repository\ProjetRepository;
+use App\Repository\StatutRepository;
+use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,15 +18,16 @@ class ProjetController extends AbstractController
 {
 
     #[Route('/projet/{id}', name: 'projet')]
-    public function projet(ProjetRepository $projetRepository, int $id): Response
+    public function projet(StatutRepository $statutRepository, Projet $projet): Response
     {
 
-        $projet = $projetRepository->find($id);
-        $employes = $projet->getEmployes();
+        $statuts = $statutRepository->findAll();
+        $employes = $projet->getEmploye();
 
         return $this->render('projet/projet.html.twig', [
             'projet' => $projet,
-            'employes' => $employes
+            'employes' => $employes,
+            'statuts' => $statuts,
         ]);
     }
 
@@ -51,7 +54,7 @@ class ProjetController extends AbstractController
     #[Route('/editProjet/{id}', 'editProjet', methods: ["GET", "POST"])]
     public function editProjet(Request $request, Projet $projet, EntityManagerInterface $em)
     {
-        $employes = $projet->getEmployes();
+        $employes = $projet->getEmploye();
 
         $form = $this->createForm(ProjetType::class, $projet);
         $form->handleRequest($request);

@@ -1,0 +1,31 @@
+{% for statut in statuts %}
+	<div class="task-column">
+		<h2>{{ statut.libelle }}</h2>
+		<div class="tasks-list">
+			{% for tache in statut.tache %}
+				{% if tache.projet.id == projet.id %}
+					<a class="task" href="{{ path('editTache', {id: tache.id}) }}">
+						<h3>{{ tache.title }}</h3>
+						<p>{{ tache.description }}</p>
+						<div class="task-infos">
+							{% if tache.deadline %}
+								<div class="task-deadline">
+									<i class="fa-regular fa-calendar"></i>
+									{{ tache.deadline|date("d/m/Y") }}
+								</div>
+							{% endif %}
+							{% if tache.employe %}
+								<div class="mini-user">
+									{{ tache.employe.avatar }}
+								</div>
+							{% endif %}
+						</div>
+					</a>
+				{% endif %}
+			{% endfor %}
+			<a href="{{ path("createTache", {id: projet.id}) }}" class="task-add">
+				+ Ajouter une tâche
+			</a>
+		</div>
+	</div>
+{% endfor %}

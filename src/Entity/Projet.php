@@ -22,20 +22,18 @@ class Projet
      * @var Collection<int, Employe>
      */
     #[ORM\ManyToMany(targetEntity: Employe::class, inversedBy: 'projets')]
-    private Collection $employes;
-
-    #[ORM\ManyToOne(inversedBy: 'projet_id')]
-    private ?Tache $tache = null;
-
-    #[ORM\ManyToOne(inversedBy: 'projet_id')]
-    private ?statut $statut = null;
+    private Collection $employe;
 
     /**
-     * @var Collection<int, Employe>
+     * @var Collection<int, Tache>
      */
+    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'projet', cascade: ['remove'])]
+    private Collection $taches;
+
     public function __construct()
     {
-        $this->employes = new ArrayCollection();
+        $this->employe = new ArrayCollection();
+        $this->taches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,15 +56,15 @@ class Projet
     /**
      * @return Collection<int, Employe>
      */
-    public function getEmployes(): Collection
+    public function getEmploye(): Collection
     {
-        return $this->employes;
+        return $this->employe;
     }
 
     public function addEmploye(Employe $employe): static
     {
-        if (!$this->employes->contains($employe)) {
-            $this->employes->add($employe);
+        if (!$this->employe->contains($employe)) {
+            $this->employe->add($employe);
         }
 
         return $this;
@@ -74,31 +72,37 @@ class Projet
 
     public function removeEmploye(Employe $employe): static
     {
-        $this->employes->removeElement($employe);
+        $this->employe->removeElement($employe);
 
         return $this;
     }
 
-    public function getTache(): ?Tache
+    /**
+     * @return Collection<int, Tache>
+     */
+    public function getTaches(): Collection
     {
-        return $this->tache;
+        return $this->taches;
     }
 
-    public function setTache(?Tache $tache): static
+    public function addTach(Tache $tach): static
     {
-        $this->tache = $tache;
+        if (!$this->taches->contains($tach)) {
+            $this->taches->add($tach);
+            $tach->setProjet($this);
+        }
 
         return $this;
     }
 
-    public function getstatut(): ?statut
+    public function removeTach(Tache $tach): static
     {
-        return $this->statut;
-    }
-
-    public function setstatut(?statut $statut): static
-    {
-        $this->statut = $statut;
+        if ($this->taches->removeElement($tach)) {
+            // set the owning side to null (unless already changed)
+            if ($tach->getProjet() === $this) {
+                $tach->setProjet(null);
+            }
+        }
 
         return $this;
     }

@@ -4,7 +4,7 @@
 			<img src="/img/logo.png" alt="Logo TaskLinker"/>
 		</a>
 		<ul id="main-menu">
-			<li class="{% if app.request.get('_route') == 'home' %} active {% endif %}">
+			<li class="{% if app.request.get('_route') != 'employes' %} active {% endif %}">
 				<a href="{{ path("home") }}">
 					<i class="fa-solid fa-list-check"></i>
 					Projets

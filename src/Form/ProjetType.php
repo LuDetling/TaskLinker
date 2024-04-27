@@ -18,7 +18,7 @@ class ProjetType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre du projet'
             ])
-            ->add('employes', EntityType::class, [
+            ->add('employe', EntityType::class, [
                 'class' => Employe::class,
                 'choice_label' => function (Employe $employe) {
                     return $employe->getFullName();

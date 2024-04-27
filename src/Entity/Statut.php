@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\statutRepository;
+use App\Repository\StatutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,17 +19,14 @@ class Statut
     private ?string $libelle = null;
 
     /**
-     * @var Collection<int, Projet>
+     * @var Collection<int, Tache>
      */
-    #[ORM\OneToMany(targetEntity: Projet::class, mappedBy: 'statut')]
-    private Collection $projet_id;
-
-    #[ORM\ManyToOne(inversedBy: 'statut_id')]
-    private ?Tache $tache = null;
+    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'statut')]
+    private Collection $tache;
 
     public function __construct()
     {
-        $this->projet_id = new ArrayCollection();
+        $this->tache = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -50,43 +47,31 @@ class Statut
     }
 
     /**
-     * @return Collection<int, Projet>
+     * @return Collection<int, Tache>
      */
-    public function getProjetId(): Collection
-    {
-        return $this->projet_id;
-    }
-
-    public function addProjetId(Projet $projetId): static
-    {
-        if (!$this->projet_id->contains($projetId)) {
-            $this->projet_id->add($projetId);
-            $projetId->setstatut($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProjetId(Projet $projetId): static
-    {
-        if ($this->projet_id->removeElement($projetId)) {
-            // set the owning side to null (unless already changed)
-            if ($projetId->getstatut() === $this) {
-                $projetId->setstatut(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getTache(): ?Tache
+    public function getTache(): Collection
     {
         return $this->tache;
     }
 
-    public function setTache(?Tache $tache): static
+    public function addTache(Tache $tache): static
     {
-        $this->tache = $tache;
+        if (!$this->tache->contains($tache)) {
+            $this->tache->add($tache);
+            $tache->setStatut($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTache(Tache $tache): static
+    {
+        if ($this->tache->removeElement($tache)) {
+            // set the owning side to null (unless already changed)
+            if ($tache->getStatut() === $this) {
+                $tache->setStatut(null);
+            }
+        }
 
         return $this;
     }
