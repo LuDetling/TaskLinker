@@ -51,7 +51,7 @@ final class EmployeFactory extends ModelFactory
             'email' => self::faker()->email(),
             'firstname' => self::faker()->firstName(),
             'lastname' => self::faker()->lastName(),
-            'statut' => self::faker()->text(20),
+            'statut' => self::faker()->text(10),
         ];
     }
 

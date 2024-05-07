@@ -4,9 +4,12 @@ namespace App\Factory;
 
 use App\Entity\Tache;
 use App\Repository\TacheRepository;
+use DateTime;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
+
+use function Symfony\Component\Clock\now;
 
 /**
  * @extends ModelFactory<Tache>
@@ -48,7 +51,11 @@ final class TacheFactory extends ModelFactory
     {
         return [
             'title' => self::faker()->words(3, true),
-            'employe_id' => self::faker()->randomNumber(1)
+            'description' => self::faker()->paragraph(3),
+            'deadline' =>  new DateTime(),
+            // 'employe' => EmployeFactory::random(),
+            'projet' => ProjetFactory::random(),
+            'statut' => StatutFactory::random(),
         ];
     }
 

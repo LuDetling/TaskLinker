@@ -48,6 +48,7 @@ final class ProjetFactory extends ModelFactory
     {
         return [
             'title' => self::faker()->text(30),
+            'employe' => EmployeFactory::randomSet(self::faker()->numberBetween(1, 3))
         ];
     }
 

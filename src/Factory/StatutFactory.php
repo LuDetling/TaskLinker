@@ -2,7 +2,6 @@
 
 namespace App\Factory;
 
-use App\Entity\Projet;
 use App\Entity\Statut;
 use App\Repository\StatutRepository;
 use Zenstruck\Foundry\ModelFactory;
@@ -48,7 +47,7 @@ final class StatutFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'libelle' => self::faker()->word(),
+            'libelle' => self::faker()->text(255),
         ];
     }
 
