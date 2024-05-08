@@ -24,6 +24,7 @@ class EmployeFixtures extends Fixture
                 ->setLastname($faker->lastName())
                 ->setStatut($faker->text(10));
             $manager->persist($employe);
+            $this->addReference('EMPLOYE-' . $i, $employe);
         }
         $manager->flush();
     }
