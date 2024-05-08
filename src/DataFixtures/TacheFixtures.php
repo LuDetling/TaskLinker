@@ -24,9 +24,9 @@ class TacheFixtures extends Fixture
 
         for ($i = 0; $i < 5; $i++) {
             $tache = (new Tache())
-                ->setTitle($faker->title())
+                ->setTitle($faker->words(3, true))
                 ->setDescription($faker->paragraph())
-                ->setDeadline($faker->dateTime())
+                ->setDeadline($faker->dateTimeThisYear())
                 ->setProjet($this->getReference("PROJET-1"))
                 ->setStatut($this->getReference($faker->randomElement($statut)));
             if ($i <= 2 || $i > 4) {
@@ -37,9 +37,9 @@ class TacheFixtures extends Fixture
 
         for ($i = 0; $i < 5; $i++) {
             $tache = (new Tache())
-                ->setTitle($faker->title())
+                ->setTitle($faker->words(2, true))
                 ->setDescription($faker->paragraph())
-                ->setDeadline($faker->dateTime())
+                ->setDeadline($faker->dateTimeThisYear())
                 ->setProjet($this->getReference("PROJET-2"))
                 ->setStatut($this->getReference($faker->randomElement($statut)));
             if ($i <= 2 || $i > 4) {

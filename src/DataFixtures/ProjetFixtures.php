@@ -15,14 +15,14 @@ class ProjetFixtures extends Fixture
         $faker = Factory::create();
 
         $projet1 = (new Projet())
-            ->setTitle($faker->title())
+            ->setTitle($faker->words(2, true))
             ->addEmploye($this->getReference('EMPLOYE-1'))
             ->addEmploye($this->getReference('EMPLOYE-2'));
         $manager->persist($projet1);
         $this->addReference("PROJET-1", $projet1);
 
         $projet2 = (new Projet())
-            ->setTitle($faker->title())
+            ->setTitle($faker->words(2, true))
             ->addEmploye($this->getReference('EMPLOYE-0'));
         $manager->persist($projet2);
         $this->addReference("PROJET-2", $projet2);
